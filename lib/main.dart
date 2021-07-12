@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     MaterialColor colorCustom = MaterialColor(0xFF142F4E, color);
     return MaterialApp(
-      title: 'Kashiar',
+      title: 'Weather App',
       theme: ThemeData(
           primarySwatch: colorCustom,
           accentColor: Colors.indigoAccent,
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Registration Page",
+                "SignUp Page",
                 style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20.0),
               ),
               SizedBox(
