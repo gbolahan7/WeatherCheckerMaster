@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'login.dart';
 
 void main() {
   runApp(MyApp());
@@ -45,7 +47,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _auth = FirebaseAuth.instance;
   bool showProgress = false;
+
+  late String email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,11 +99,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.lightBlue,
                 borderRadius: BorderRadius.circular(32.0),
                 child: MaterialButton(
-                  onPressed: () {
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(builder: (context) => MyLoginPage()),
-//                  );
+                  onPressed: () async {
+                    setState(() {
+                      showProgress = true;
+                    });
+                    try {
+                      final newUser =
+                          await _auth.createUserWithEmailAndPassword(
+                              email: email, password: password);
+                      if (newUser != null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyLoginPage()),
+                        );
+                        setState(() {
+                          showProgress = false;
+                        });
+                      }
+                    } catch (e) {}
                   },
                   minWidth: 200.0,
                   height: 45.0,
@@ -107,6 +126,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0),
                   ),
+                ),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyLoginPage()),
+                  );
+                },
+                child: Text(
+                  "Already Registred? Login Now",
+                  style: TextStyle(
+                      color: Colors.blue, fontWeight: FontWeight.w900),
                 ),
               )
             ],

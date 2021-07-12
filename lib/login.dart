@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
 
@@ -39,7 +41,9 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  final _auth = FirebaseAuth.instance;
   bool showProgress = false;
+  late String email, password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +92,29 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 color: Colors.lightBlue,
                 borderRadius: BorderRadius.circular(32.0),
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    setState(() {
+                      showProgress = true;
+                    });
+                    try {
+                      final newUser = await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      print(newUser.toString());
+                      if (newUser != null) {
+                        Fluttertoast.showToast(
+                            msg: "Login Successfull",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.blueAccent,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        setState(() {
+                          showProgress = false;
+                        });
+                      }
+                    } catch (e) {}
+                  },
                   minWidth: 200.0,
                   height: 45.0,
                   child: Text(
