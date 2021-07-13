@@ -13,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool _isSendingVerification = false;
+  // bool _isSendingVerification = false;
   bool _isSigningOut = false;
 
   late User _currentUser;
@@ -44,54 +44,54 @@ class _ProfilePageState extends State<ProfilePage> {
               style: Theme.of(context).textTheme.bodyText1,
             ),
             SizedBox(height: 16.0),
-            _currentUser.emailVerified
-                ? Text(
-                    'Email verified',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: Colors.green),
-                  )
-                : Text(
-                    'Email not verified',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: Colors.red),
-                  ),
+            // _currentUser.emailVerified
+            //     ? Text(
+            //         'Email verified',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .bodyText1!
+            //             .copyWith(color: Colors.green),
+            //       )
+            //     : Text(
+            //         'Email not verified',
+            //         style: Theme.of(context)
+            //             .textTheme
+            //             .bodyText1!
+            //             .copyWith(color: Colors.red),
+            //       ),
             SizedBox(height: 16.0),
-            _isSendingVerification
-                ? CircularProgressIndicator()
-                : Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          setState(() {
-                            _isSendingVerification = true;
-                          });
-                          await _currentUser.sendEmailVerification();
-                          setState(() {
-                            _isSendingVerification = false;
-                          });
-                        },
-                        child: Text('Verify email'),
-                      ),
-                      SizedBox(width: 8.0),
-                      IconButton(
-                        icon: Icon(Icons.refresh),
-                        onPressed: () async {
-                          User? user = await FireAuth.refreshUser(_currentUser);
+            // _isSendingVerification
+            //     ? CircularProgressIndicator()
+            //     : Row(
+            //         mainAxisSize: MainAxisSize.min,
+            //         children: [
+            //           ElevatedButton(
+            //             onPressed: () async {
+            //               setState(() {
+            //                 _isSendingVerification = true;
+            //               });
+            //               await _currentUser.sendEmailVerification();
+            //               setState(() {
+            //                 _isSendingVerification = false;
+            //               });
+            //             },
+            //             child: Text('Verify email'),
+            //           ),
+            //     SizedBox(width: 8.0),
+            //     IconButton(
+            //       icon: Icon(Icons.refresh),
+            //       onPressed: () async {
+            //         User? user = await FireAuth.refreshUser(_currentUser);
 
-                          if (user != null) {
-                            setState(() {
-                              _currentUser = user;
-                            });
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+            //         if (user != null) {
+            //           setState(() {
+            //             _currentUser = user;
+            //           });
+            //         }
+            //       },
+            //     ),
+            //   ],
+            // ),
             SizedBox(height: 16.0),
             _isSigningOut
                 ? CircularProgressIndicator()

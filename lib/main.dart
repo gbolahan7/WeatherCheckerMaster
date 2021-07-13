@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'screens/login_page.dart';
+import 'home.dart';
 
 void main() {
   runApp(MyApp());
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(fontSize: 18.0),
         ),
       ),
-      home: LoginPage(),
+      // home: LoginPage(),
+      home: MainScreen(),
     );
   }
 }
